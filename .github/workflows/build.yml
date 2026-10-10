@@ -171,7 +171,7 @@ jobs:
               "Select CUSTOM/LOCAL firmware in updater; stock XIAO firmware lacks these settings.\n"
               "Built and structurally verified; BLE transfer and device operation not tested.\n"
           )
-          hashes = [(file.name, hashlib.sha256(file.read_bytes()).hexdigest()) for file in sorted(release.iterdir())]
+          hashes = [(file.name, hashlib.sha256(file.read_bytes()).hexdigest()) for file in sorted(release.iterdir()) if file.is_file() and not file.name.startswith(".")]
           (release / "SHA256SUMS.txt").write_text("".join(f"{sha}  {name}\n" for name, sha in hashes))
           print("Reported hardware: XIAO_NRF52_KIT (88)")
           print("Reported build target:", metadata["platformioTarget"])
