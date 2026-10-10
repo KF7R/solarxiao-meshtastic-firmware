@@ -8,6 +8,12 @@ The workflow checks out official Meshtastic commit `8e6a88d06f44cad26f1e8d7cd402
 
 ## Download and build
 
+[Download the verified USB/BLE package](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38025685865/artifacts/11660134541) from the [successful build](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38025685865). Compilation and package verification passed on October 9, 2026 (America/Phoenix). Flash usage: 690,348 / 815,104 bytes (84.7%); static RAM: 96,532 / 248,832 bytes (38.8%).
+
+UF2 SHA256: `29d6c11547668921da42d19f66dcfe42f1f5ed714e4249776a23cfed7867a5fd`.
+
+BLE ZIP SHA256: `ecf98d6b276d91cf28e3e443761b1032d540484e3daaaf7869647a21fa0f3d7c`.
+
 Open [GitHub Actions](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/workflows/build.yml), select a successful run, and download **SolarXiao-2.8.1-XIAO-NRF-KIT-USB-BLE**. Extract the outer artifact ZIP.
 
 - `firmware-seeed_xiao_nrf52840_kit-2.8.1.8e6a88d.uf2`: USB application install.
