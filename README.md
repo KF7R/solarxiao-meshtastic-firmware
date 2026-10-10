@@ -8,13 +8,13 @@ The workflow checks out official Meshtastic commit `8e6a88d06f44cad26f1e8d7cd402
 
 ## Download and build
 
-[Download the verified USB/BLE package](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38025685865/artifacts/11660134541) from the [successful build](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38025685865). Compilation and package verification passed on October 9, 2026 (America/Phoenix). Flash usage: 690,348 / 815,104 bytes (84.7%); static RAM: 96,532 / 248,832 bytes (38.8%).
+[Download the verified USB/BLE package](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432/artifacts/11683237160) from the [successful build](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432). Compilation and package verification passed on October 10, 2026 (America/Phoenix). Flash usage: 690,332 / 815,104 bytes (84.7%); static RAM: 96,532 / 248,832 bytes (38.8%).
 
-UF2 SHA256: `29d6c11547668921da42d19f66dcfe42f1f5ed714e4249776a23cfed7867a5fd`.
+UF2 SHA256: `8bbd71be2fef53b8f3c5f4045cd5a290ba1224240bf7d9fa507a1c1e71107075`.
 
-BLE ZIP SHA256: `ecf98d6b276d91cf28e3e443761b1032d540484e3daaaf7869647a21fa0f3d7c`.
+BLE ZIP SHA256: `91f185bd9beb947ea183b59e98734afbf4011010fe9af44da4df874abde6902b`.
 
-Open [GitHub Actions](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/workflows/build.yml), select a successful run, and download **SolarXiao-2.8.1-XIAO-NRF-KIT-USB-BLE**. Extract the outer artifact ZIP.
+Open [GitHub Actions](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/workflows/build.yml), select a successful run, and download **SolarXiao-2.8.1-XIAO-NRF-KIT-D0-GPS-USB-BLE**. Extract the outer artifact ZIP.
 
 - `firmware-seeed_xiao_nrf52840_kit-2.8.1.8e6a88d.uf2`: USB application install.
 - `firmware-seeed_xiao_nrf52840_kit-2.8.1.8e6a88d-ota.zip`: BLE application DFU package. Select this inner ZIP in the updater.
@@ -35,13 +35,15 @@ Based on the designer's Advanced Plus schematic dated 2026-10-03:
 | Radio SPI SCK / MISO / MOSI | D8 / D9 / D10 |
 | GPS module RX / TX | D6 / D7 |
 | I2C SDA / SCL | logical 30 / 31, NFC1 / NFC2 |
-| D0 | unassigned |
+| GPS enable | D0, active high |
 
-Radio EN is tied to 3.3 V on the carrier; D5 is not used. DIO2 controls T/RCTRL; DIO3 supplies the 1.8 V TCXO reference. NFC GPIO configuration is enabled. UART GPS starts at 9600 baud with no L76K-specific default or D0 standby control.
+Radio EN is tied to 3.3 V on the carrier; D5 is not used. DIO2 controls T/RCTRL; DIO3 supplies the 1.8 V TCXO reference. NFC GPIO configuration is enabled. UART GPS starts at 9600 baud with no L76K-specific default. D0 provides active-high GPS enable control: high when active, low during hard sleep. The build patches the upstream GPS enable-pin check to support valid GPIO number zero.
 
-U17 GPS connector schematic numbering: 1 D0 (unused), 2 GPS RX (MCU D6), 3 GPS TX (MCU D7), 4 GND, 5 3.3 V. Verify the chosen GPS breakout's supply requirements before using pin 5; connector numbering is not a physical viewing-order diagram.
+U17 GPS connector schematic numbering: 1 D0 (active-high GPS enable), 2 GPS RX (MCU D6), 3 GPS TX (MCU D7), 4 GND, 5 3.3 V. Verify the chosen GPS breakout's supply requirements before using pin 5; connector numbering is not a physical viewing-order diagram.
 
 U14 I2C connector numbering: 1 GND, 2 3.3 V, 3 SDA, 4 SCL.
+
+The Adafruit Ultimate GPS breakout (product 746) uses all five connections: EN to pin 1, RX to pin 2, TX to pin 3, GND to pin 4, and VIN to pin 5. Its active-high enable matches this build. Verify physical pin orientation before applying power. Firmware can be installed without a GPS; leave fixed position enabled until live GPS coordinates are wanted.
 
 ## Power and limitations
 
@@ -49,7 +51,7 @@ The designer recommends 18 dBm chip drive for approximately 30 dBm RF output. Th
 
 Lower power settings are not calibrated. The solar charger's status outputs are not connected to the MCU; the inherited XIAO charge detector cannot reliably indicate solar charging. Battery ADC settings remain inherited from the XIAO kit.
 
-A successful build and UF2 checks establish compilation and file structure, not on-device performance. No device has been flashed or tested.
+A successful build and UF2 checks establish compilation and file structure, not on-device performance. The previous application was checked over USB for radio initialization and power calculation. This D0 revision has not been flashed or tested with a GPS receiver.
 
 ## Flash
 
