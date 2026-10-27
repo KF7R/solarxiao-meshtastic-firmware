@@ -8,13 +8,11 @@ The workflow checks out official Meshtastic commit `8e6a88d06f44cad26f1e8d7cd402
 
 ## Download and build
 
-The October 10 package below uses the previous 12 dB / 18 dBm mapping. For the Spicy power revision, use a successful run for commit `b05c44d12092148b15c9637260918678d9faf32e` or later from [Actions](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/workflows/build.yml).
+[Download the Spicy-mapping USB/BLE package](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/40453893151/artifacts/12711302258) from [successful build #4](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/40453893151), workflow commit `b05c44d12092148b15c9637260918678d9faf32e`. Compilation and package verification passed October 26, 2026 (America/Phoenix). This revision uses 8 dB PA gain allowance and a 22 dBm chip cap. Flash: 690,332 / 815,104 bytes; static RAM: 96,532 / 248,832 bytes. RF output has not been measured.
 
-[Download the previous USB/BLE package](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432/artifacts/11683237160) from the [successful build](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432). Compilation and package verification passed on October 10, 2026 (America/Phoenix). Flash usage: 690,332 / 815,104 bytes (84.7%); static RAM: 96,532 / 248,832 bytes (38.8%).
+UF2 SHA256: `cdb75e836706e763a400ebe676f8bfd2a6cae53c514bacbe2cd13a582b8bc0a3`.
 
-UF2 SHA256: `8bbd71be2fef53b8f3c5f4045cd5a290ba1224240bf7d9fa507a1c1e71107075`.
-
-BLE ZIP SHA256: `91f185bd9beb947ea183b59e98734afbf4011010fe9af44da4df874abde6902b`.
+BLE ZIP SHA256: `2296aa05f30e7a8c86852b804b1beb22d7020defda3a8c23fd1a84888bfb2454`.
 
 Open [GitHub Actions](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/workflows/build.yml), select a successful run, and download **SolarXiao-2.8.1-XIAO-NRF-KIT-D0-GPS-USB-BLE**. Extract the outer artifact ZIP.
 
