@@ -32,7 +32,7 @@ jobs:
           dst.mkdir(parents=True, exist_ok=True)
           h = (src / "variant.h").read_text()
           replacements = {
-              "#define USE_SX1262": "#define USE_SX1262\n// E22P: estimated 12 dB PA gain near full power; lower levels uncalibrated.\n#define TX_GAIN_LORA 12\n#define SX126X_MAX_POWER 18",
+              "#define USE_SX1262": "#define USE_SX1262\n// E22P: Spicy E22P mapping: 8 dB PA allowance, 22 dBm chip cap; RF output unmeasured.\n#define TX_GAIN_LORA 8\n#define SX126X_MAX_POWER 22",
               "#define SX126X_RXEN D5": "#define SX126X_RXEN RADIOLIB_NC",
               "#define GPS_L76K": "// Generic UART GPS; no L76K-specific defaults.",
               "#define PIN_GPS_STANDBY D0": "#define PIN_GPS_EN D0\n#define GPS_EN_ACTIVE 1",
@@ -46,7 +46,7 @@ jobs:
           cpp += 'static_assert(PIN_WIRE_SDA == 30 && PIN_WIRE_SCL == 31, "I2C pin mismatch");\n'
           cpp += '#ifdef PIN_GPS_STANDBY\n#error "GPS enable must not also be assigned as standby"\n#endif\n'
           cpp += 'static_assert(HW_VENDOR == meshtastic_HardwareModel_XIAO_NRF52_KIT, "Hardware ID mismatch");\n'
-          cpp += 'static_assert(TX_GAIN_LORA == 12 && SX126X_MAX_POWER == 18, "PA settings mismatch");\n'
+          cpp += 'static_assert(TX_GAIN_LORA == 8 && SX126X_MAX_POWER == 22, "PA settings mismatch");\n'
           cpp += 'static_assert(PIN_GPS_EN == D0 && GPS_EN_ACTIVE == 1, "GPS enable mismatch");\n'
           (dst / "variant.cpp").write_text(cpp)
           # GPIO 0 is valid on XIAO; upstream's truthiness check treats it as absent.
@@ -175,8 +175,8 @@ jobs:
               "CUSTOM SOLARXIAO ADVANCED E22P firmware, reported as XIAO NRF KIT.\n"
               "UF2: USB application install. *-ota.zip: BLE application DFU update.\n"
               "S140 7.3.0 (0x0123); application begins at 0x27000.\n"
-              "GPS D6/D7, active-high GPS enable D0, I2C 30/31, RXEN disconnected, PA gain 12 dB, chip cap 18 dBm.\n"
-              "Normal mode requested 30 dBm maps to chip 18 dBm.\n"
+              "GPS D6/D7, active-high GPS enable D0, I2C 30/31, RXEN disconnected, PA gain 8 dB, chip cap 22 dBm.\n"
+              "Normal mode requested 30 dBm maps to chip 22 dBm.\n"
               "Select CUSTOM/LOCAL firmware in updater; stock XIAO firmware lacks these settings.\n"
               "Built and structurally verified; BLE transfer and device operation not tested.\n"
           )
