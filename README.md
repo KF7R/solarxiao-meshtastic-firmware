@@ -8,7 +8,9 @@ The workflow checks out official Meshtastic commit `8e6a88d06f44cad26f1e8d7cd402
 
 ## Download and build
 
-[Download the verified USB/BLE package](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432/artifacts/11683237160) from the [successful build](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432). Compilation and package verification passed on October 10, 2026 (America/Phoenix). Flash usage: 690,332 / 815,104 bytes (84.7%); static RAM: 96,532 / 248,832 bytes (38.8%).
+The October 10 package below uses the previous 12 dB / 18 dBm mapping. For the Spicy power revision, use a successful run for commit `b05c44d12092148b15c9637260918678d9faf32e` or later from [Actions](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/workflows/build.yml).
+
+[Download the previous USB/BLE package](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432/artifacts/11683237160) from the [successful build](https://github.com/KF7R/solarxiao-meshtastic-firmware/actions/runs/38088565432). Compilation and package verification passed on October 10, 2026 (America/Phoenix). Flash usage: 690,332 / 815,104 bytes (84.7%); static RAM: 96,532 / 248,832 bytes (38.8%).
 
 UF2 SHA256: `8bbd71be2fef53b8f3c5f4045cd5a290ba1224240bf7d9fa507a1c1e71107075`.
 
@@ -47,7 +49,7 @@ The Adafruit Ultimate GPS breakout (product 746) uses all five connections: EN t
 
 ## Power and limitations
 
-The designer recommends 18 dBm chip drive for approximately 30 dBm RF output. This build caps chip drive at 18 dBm and applies an estimated 12 dB PA gain correction in normal mode. **Set requested transmit power to 30 dBm for the full-power operating point in normal mode**; requested 18 maps to chip drive 6. Licensed mode bypasses gain correction but retains the 18 dBm cap.
+This build follows the published Spicy E22P configuration: `TX_GAIN_LORA = 8` dB and `SX126X_MAX_POWER = 22` dBm. **Set requested transmit power to 30 dBm for the intended full-power operating point in normal mode**; requested 30 maps to chip drive 22, and requested 18 maps to chip drive 10. Licensed mode bypasses gain correction but retains the 22 dBm cap. The 8 dB allowance comes from the author's configuration, not a calibration of this board. Actual RF output and supply behavior under TX must be measured. This replaces the previous estimated 12 dB / 18 dBm mapping. Source: [published Spicy E22P recipe](https://github.com/ascendr/firmware/blob/cb718ee5ff294739232a5efefd4b53c8f6720af8/variants/nrf52840/seeed_xiao_nrf52840_kit/variant.h).
 
 Lower power settings are not calibrated. The solar charger's status outputs are not connected to the MCU; the inherited XIAO charge detector cannot reliably indicate solar charging. Battery ADC settings remain inherited from the XIAO kit.
 
